@@ -1,0 +1,48 @@
+{
+  "gameTarget": {
+    "easy": 500
+  },
+  "skills": [
+    {
+      "name": "JavaScript",
+      "energyWaste": 30,
+      "time": 2
+    },
+    {
+      "name": "React",
+      "energyWaste": 50,
+      "time": 2,
+      "requried": [
+        "JavaScript"
+      ]
+    }
+  ],
+  "levels": {
+    "1": [
+      {
+        "task": "DO slider",
+        "money": 150,
+        "energyWaste": 15,
+        "time": 1
+      },
+      {
+        "task": "DO Multipage sote",
+        "money": 450,
+        "energyWaste": 45,
+        "time": 6
+      }
+    ],
+    "2": [
+      {
+        "task": "JS game",
+        "money": 250,
+        "energyWaste": 30,
+        "time": 3,
+        "requried": [
+          "JS",
+          "jQuery"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "gameTarget": {
+    "easy": {
+      "money": 1000,
+      "requiredTasks": 4
+    }
+  },
+  "player": {
+    "name": "Nadya",
+    "character": "",
+    "level": 1,
+    "exp": 0,
+    "expToNext": 100,
+    "money": 0,
+    "energy": 100,
+    "maxEnergy": 100,
+    "skillsLearned": [
+      "HTML",
+      "CSS"
+    ],
+    "currentTask": {
+      "task": null,
+      "status": "idle",
+      "endTime": null
+    }
+  },
+  "specialTasks": [
+    {
+      "type": "Обучение",
+      "name": "Tic-Tac-Toe на одномерном массиве",
+      "skill": "JavaScript",
+      "energyWaste": 40,
+      "time": 1,
+      "rewardXP": 3,
+      "link": "https://youtu.be/UvzA_YukjKI?si=-c9X2Ykv8DDtGwkQ"
+    },
+    {
+      "type": "Задание",
+      "name": "Повторить код",
+      "requiredSkills": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "energyWaste": 30,
+      "time": 3,
+      "rewardMoney": 0,
+      "rewardXP": 3
+    }
+  ]
+}

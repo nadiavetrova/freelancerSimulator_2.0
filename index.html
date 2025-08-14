@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Freelancer Simulator</title>
+  <link rel="stylesheet" href="bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <section class="startGame">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="hud">
+            <div class="hubIMG">
+              <img class="img-fluid" id="character" alt="Character">
+              <div class="hudCloseOpen">
+                Закрыть
+              </div>
+            </div>
+            <ul class="hubList">
+              <li class="hubItem">👤 Игрок: <span id="name"></span></li>
+              <li class="hubItem">📈 Уровень: <span id="level"></span></li>
+              <li class="hubItem">🎯 Цель: <span id="goal"></span>
+              </li>
+              <li class="hubItem">🎯 Количество <br> обязательных заданий:
+                <span id="requiredTasks"></span>
+              </li>
+              <li class="hubItem">⭐ Опыт: <span id="exp"></span> <span id="expToNext"></span></li>
+              <li class="hubItem">💰 Деньги: <span id="money"></span></li>
+              <li class="hubItem">⚡ Энергия: <span id="energy"></span> <span id="maxEnergy"></span></li>
+              <li class="hubItem endTime"> Время: <br> <span id="endTime"></span> <br> до окончания <br> срока
+                достичения
+                цели
+              </li>
+            </ul>
+          </div>
+        </div>
+
+
+        <div class="instuction">
+          <p class="instructionsText">
+            <span>📜 Инструкция к игре</span> <br>
+            У тебя есть 14 игровых дней, чтобы выполнить план:
+            заработать определённую сумму денег - 1000$.
+
+            Выполнить 2–4 обязательных заказа (они будут рандомно предложенны в процессе). <br>
+
+            💡 Важно: каждый день — это ресурс. Решай, чем заниматься: брать заказы, учиться или отдыхать.
+          </p>
+          <span></span>
+
+          <div class="instructionsBTN_box">
+            <button class="instructionsBTN btnMain uppercase">
+              Продолжить
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="firstSlide" style="display: none;">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="wrp_01">
+            <div class="wrp_02">
+              <div class="wrp">
+                <div class="mainPhotos">
+                  <div class="mainPhotoWrapper">
+                    <img class="mainPhoto" src="img/boyMain.png" alt="">
+                  </div>
+                  <div class="mainPhotoWrapper">
+                    <img class="mainPhoto mainPhotoGirl" src="img/girlMain.png" alt="">
+                  </div>
+                </div>
+                <h1 class="title">
+                  Freelancer Simulator
+                </h1>
+
+                <button class="firstSlideBTN btnMain uppercase">
+                  Начать игру
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="secondSlide">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="infoWRP">
+            <p class="secondText">🎮 Ты проснулся(ась). Сегодня ты — фрилансер, настоящий программист!
+              У тебя есть: Wi-Fi, чашка кофе и мечта заработать с первого заказа.
+              У тебя нет: стабильности, графика и… социальных гарантий.
+
+              Выполняй заказы, зарабатывай рейтинг, не сойди с ума от клиентов и не забывай отдыхать! <br>
+            </p>
+            <p class="secondText">А сейчас пришло время познакомиться:</p>
+            <label class="inputName">
+
+              <input class="userName" type="text" name="userName" id="secondSlideInputName"
+                placeholder="Введите Ваше Имя ...">
+              <p class="secondSlideError hide">Я до сих пор не знаю вашего имени!</p>
+            </label>
+            <p class="secondText">
+              Меня зовут Надежда, я начинающий Frontend-разработчик! Этим проектом я просто хотела попробовать себя в
+              чём-то новом —
+              сделать что-то весёлое, интерактивное и чуть-чуть безумное.
+              <br><br>
+              Этот симулятор — не учебник и не инструкция. Это игра, в которой ты сможешь погрузиться в атмосферу
+              фриланса и, может
+              быть, узнать себя (или свою тёмную сторону).
+              <br><br>
+              Выбирай персонажа (прототипом к которым стала я и мой молодой человек) и вперёд — выполнять заказы,
+              бороться с дедлайнами и не забывать про жизнь вне экрана!
+            </p>
+            <button class="secondSlideBTN btnMain uppercase">
+              Продолжить
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="characterSelection_box hide">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="characterSelection">
+            <div class="characterInfo_box">
+              <p class="characterSlideError hide">"Пожалуйста, выбери персонажа"</p>
+              <h2 class="title secondTitle">
+                Выбирете игрока:
+              </h2>
+              <div class="characterSlideBTN_box">
+                <button class="characterSlideBTN btnMain uppercase">
+                  Продолжить
+                </button>
+              </div>
+            </div>
+
+            <div id="playerPhrase" class="phrase-bubble hidden"></div>
+            <div class="boy">
+              <img class="boyImg" src="img/boy_1.png" alt="boy" id="boy">>
+            </div>
+            <div class="girl">
+              <img class="girlImg" src="img/girl_1.png" alt="girl" id="girl">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+
+
+
+
+
+  <script src="game.js"></script>
+</body>
+
+</html>
