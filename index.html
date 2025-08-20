@@ -15,52 +15,60 @@
       <div class="row">
         <div class="col-12">
           <div class="hud">
+            <ul class="hubList">
+              <li class="hubItem gamer">👤 Игрок: <span id="name"></span></li>
+              <li class="hubItem">📈 Уровень: <span id="level">Легкий</span></li>
+              <li class="hubItem">🎯 Цель: <span id="goal">1000</span> Монет
+              </li>
+              <li class="hubItem">Количество <br> обязательных <br> заданий:
+                <span id="requiredTasks">2</span>
+              </li>
+              <li class="hubItem">⭐ Опыт: <span id="exp">0</span> / <span id="expToNext">100</span></li>
+              <li class="hubItem">💰 Монеты: <span id="money">0</span></li>
+              <li class="hubItem">⚡ Энергия: <span id="energy">100</span> / <span id="maxEnergy">100</span></li>
+              <li class="hubItem">⚡ Skills: <span id="skills">HTML, CSS</span></li>
+            </ul>
             <div class="hubIMG">
               <img class="img-fluid" id="character" alt="Character">
-              <div class="hudCloseOpen">
-                Закрыть
-              </div>
             </div>
-            <ul class="hubList">
-              <li class="hubItem">👤 Игрок: <span id="name"></span></li>
-              <li class="hubItem">📈 Уровень: <span id="level"></span></li>
-              <li class="hubItem">🎯 Цель: <span id="goal"></span>
-              </li>
-              <li class="hubItem">🎯 Количество <br> обязательных <br> заданий:
-                <span id="requiredTasks"></span>
-              </li>
-              <li class="hubItem">⭐ Опыт: <span id="exp"></span> <span id="expToNext"></span></li>
-              <li class="hubItem">💰 Деньги: <span id="money"></span></li>
-              <li class="hubItem">⚡ Энергия: <span id="energy"></span> <span id="maxEnergy"></span></li>
-            </ul>
           </div>
-        </div>
 
-
-        <div class="instuction">
           <p class="endTime"> Время: <span id="endTime"></span> до окончания срока
             достичения
             цели
           </p>
-          <p class="instructionsText">
-            <span>📜 Инструкция к игре</span> <br>
-            У тебя есть 14 игровых дней, чтобы выполнить план:
-            заработать определённую сумму денег - 1000$.
+          <div class="instuction">
+            <p class="instructionsText">
+              <span>📜 Инструкция к игре</span> <br>
+              У тебя есть 14 игровых дней, чтобы выполнить план:
+              заработать определённую сумму денег - 1000$.
 
-            Выполнить 2–4 обязательных заказа (они будут рандомно предложенны в процессе). <br>
+              Выполнить 2–4 обязательных заказа (они будут рандомно предложенны в процессе). <br>
 
-            💡 Важно: каждый день — это ресурс. Решай, чем заниматься: брать заказы, учиться или отдыхать.
-          </p>
-          <span></span>
+              💡 Важно: каждый день — это ресурс. Решай, чем заниматься: брать заказы, учиться или отдыхать.
+            </p>
+            <span></span>
 
-          <div class="instructionsBTN_box">
-            <button class="instructionsBTN btnMain uppercase">
-              Продолжить
-            </button>
+            <div class="instructionsBTN_box">
+              <button class="instructionsBTN btnMain uppercase">
+                Продолжить
+              </button>
+            </div>
+          </div>
+
+          <div class="game">
+            <div class="player-stats">
+              <div class="tasks">
+                <h2>📚 Задания</h2>
+                <ul id="taskList"></ul>
+                <p id="dailyLimitMessage" style="display:none; font-weight:bold; color:red;">
+                  Продолжим завтра! 🚀
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
   </section>
 
   <section class="firstSlide" style="display: none;">

@@ -109,6 +109,7 @@ function characterSelectionInit() {
 
   console.log("Выбран персонаж:", selectedCharacter);
 
+  document.getElementById('character').src = `img/${selectedCharacter}Main.png`;
 }
 characterSelectionInit();
 
@@ -122,47 +123,6 @@ characterSelectionInit();
 
 
 function initPlayerHUD() {
-  let gameData;
-  let player;
-
-  fetch('stage.json')
-    .then(response => response.json())
-    .then(data => {
-      gameData = data;
-
-      const savedCharacter = localStorage.getItem('selectedCharacter');
-      const savedName = localStorage.getItem('playerName');
-
-      // Берём дефолтные данные игрока
-      player = { ...data.player };
-
-      // Подставляем сохранённые значения
-      if (savedCharacter) {
-        player.character = savedCharacter;
-      }
-      if (savedName) {
-        player.name = savedName;
-      }
-
-      // Сохраняем обновлённого игрока в localStorage
-      localStorage.setItem('player', JSON.stringify(player));
-
-      updateHUD();
-    })
-    .catch(error => console.error('Ошибка загрузки JSON:', error));
-
-  function updateHUD() {
-    document.getElementById("goal").textContent = gameData.gameTarget.easy.money + "$";
-    document.getElementById("requiredTasks").textContent = gameData.gameTarget.easy.requiredTasks;
-    document.getElementById("name").textContent = player.name;
-    document.getElementById("character").src = `img/${player.character}Main.png`;
-    document.getElementById("level").textContent = player.level;
-    document.getElementById("exp").textContent = `${player.exp} / ${player.expToNext}`;
-    document.getElementById("money").textContent = player.money;
-    document.getElementById("energy").textContent = `${player.energy} / ${player.maxEnergy}`;
-
-    updateCountdown();
-  }
 
   function updateCountdown() {
     const startTime = localStorage.getItem('gameStartTime');
@@ -190,16 +150,6 @@ function initPlayerHUD() {
 
   // Таймер обновляется каждую секунду
   setInterval(updateCountdown, 1000);
-
-  const hudCloseOpenBtn = document.querySelector('.hudCloseOpen');
-  const hud = document.querySelector('.hud');
-
-  hudCloseOpenBtn.addEventListener('click', openCloseHudList);
-
-  function openCloseHudList() {
-    hud.classList.toggle('closeHudList');
-    hudCloseOpenBtn.textContent = hud.classList.contains('closeHudList') ? 'Открыть' : 'Закрыть';
-  }
 
   // Инструкции
   const instructionsBTN = document.querySelector('.instructionsBTN');
@@ -246,14 +196,15 @@ function initPlayerHUD() {
         localStorage.setItem('gameStartTime', Date.now());
       }
       updateCountdown(); // Запускаем сразу
+      instructionsBTN.style.display = 'none';
+      instructionsText.style.display = 'none';
+      document.querySelector('.game').style.display = 'block';
     }
   });
+
 }
 
 initPlayerHUD();
-
-
-
 
 //   const orders = [
 //     { text: "Выберите заказ", money: 0, energy: 0, xp: 0 },

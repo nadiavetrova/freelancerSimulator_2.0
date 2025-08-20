@@ -12,7 +12,7 @@
       "name": "React",
       "energyWaste": 50,
       "time": 2,
-      "requried": [
+      "required": [
         "JavaScript"
       ]
     }
@@ -23,7 +23,25 @@
         "task": "DO slider",
         "money": 150,
         "energyWaste": 15,
-        "time": 1
+        "time": 1,
+        "calculatedTime": 1.5,
+        "deadLineTime": 3,
+      },
+      {
+        "task": "DO slider",
+        "money": 125,
+        "energyWaste": 15,
+        "time": 1,
+        "calculatedTime": 1.5,
+        "deadLineTime": 2,
+      },
+      {
+        "task": "DO slider",
+        "money": 165,
+        "energyWaste": 15,
+        "time": 1,
+        "calculatedTime": 1.5,
+        "deadLineTime": 4,
       },
       {
         "task": "DO Multipage sote",
@@ -38,9 +56,22 @@
         "money": 250,
         "energyWaste": 30,
         "time": 3,
-        "requried": [
+        "required": [
           "JS",
           "jQuery"
+        ]
+      }
+    ],
+    "3": [
+      {
+        "task": "Rest APi",
+        "money": 650,
+        "energyWaste": 30,
+        "time": 3,
+        "required": [
+          "JS",
+          "nodeJS",
+          "Express"
         ]
       }
     ]

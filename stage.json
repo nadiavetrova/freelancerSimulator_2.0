@@ -1,51 +1,302 @@
 {
+  "version": "1.0",
+  "saveDate": "2025-08-19T10:00:00Z",
   "gameTarget": {
     "easy": {
       "money": 1000,
-      "requiredTasks": 4
+      "requiredTasks": 2,
+      "description": "Заработать 1000 монет, выполнив 2 задания"
+    },
+    "medium": {
+      "money": 5000,
+      "requiredTasks": 3,
+      "description": "Заработать 5000 монет, выполнив 3 заданий"
+    },
+    "hard": {
+      "money": 15000,
+      "requiredTasks": 5,
+      "description": "Заработать 15000 монет, выполнив 5 заданий"
     }
   },
   "player": {
-    "name": "Nadya",
-    "character": "",
-    "level": 1,
-    "exp": 0,
-    "expToNext": 100,
-    "money": 0,
-    "energy": 100,
-    "maxEnergy": 100,
-    "skillsLearned": [
+    "character": ""
+  },
+  "currentTask": {
+    "taskId": null,
+    "status": "idle",
+    "startTime": null,
+    "endTime": null,
+    "progress": 0
+  },
+  "inventory": {
+    "items": [],
+    "capacity": 10
+  }
+},
+"specialTasks": [
+  {
+    "id": "task_001",
+    "type": "Обучение",
+    "name": "Tic-Tac-Toe на одномерном массиве",
+    "description": "Изучите основы JavaScript через создание игры крестики-нолики",
+    "skill": "JavaScript",
+    "difficulty": "beginner",
+    "category": "frontend",
+    "prerequisites": [
       "HTML",
       "CSS"
     ],
-    "currentTask": {
-      "task": null,
-      "status": "idle",
-      "endTime": null
+    "energyWaste": 40,
+    "time": 60,
+    "rewards": {
+      "money": 0,
+      "exp": 50,
+      "items": []
+    },
+    "link": "https://youtu.be/UvzA_YukjKI?si=-c9X2Ykv8DDtGwkQ",
+    "isRepeatable": true,
+    "maxRepeats": 3,
+    "timesCompleted": 0
+  },
+  {
+    "id": "task_002",
+    "type": "Задание",
+    "name": "Повторить код",
+    "description": "Воспроизведите код из обучающего материала",
+    "difficulty": "beginner",
+    "category": "practice",
+    "requiredSkills": [
+      "HTML",
+      "CSS",
+      "JavaScript"
+    ],
+    "energyWaste": 30,
+    "time": 180,
+    "rewards": {
+      "money": 100,
+      "exp": 30,
+      "items": []
+    },
+    "isRepeatable": true,
+    "maxRepeats": 5,
+    "timesCompleted": 0
+  },
+  {
+    "id": "task_003",
+    "type": "Обучение",
+    "name": "React основы",
+    "description": "Изучите основы библиотеки React",
+    "skill": "React",
+    "difficulty": "intermediate",
+    "category": "frontend",
+    "prerequisites": [
+      "HTML",
+      "CSS",
+      "JavaScript"
+    ],
+    "energyWaste": 60,
+    "time": 120,
+    "rewards": {
+      "money": 0,
+      "exp": 80,
+      "items": []
+    },
+    "link": "https://react.dev/learn",
+    "isRepeatable": false,
+    "maxRepeats": 1,
+    "timesCompleted": 0
+  },
+  {
+    "id": "task_004",
+    "type": "Проект",
+    "name": "Создать ToDo приложение",
+    "description": "Разработайте полноценное приложение для управления задачами",
+    "difficulty": "intermediate",
+    "category": "fullstack",
+    "requiredSkills": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "React"
+    ],
+    "energyWaste": 80,
+    "time": 300,
+    "rewards": {
+      "money": 500,
+      "exp": 150,
+      "items": [
+        "certificate_react_project"
+      ]
+    },
+    "isRepeatable": false,
+    "maxRepeats": 1,
+    "timesCompleted": 0
+  },
+  {
+    "id": "task_005",
+    "type": "Обучение",
+    "name": "Node.js основы",
+    "description": "Изучите серверную разработку на JavaScript",
+    "skill": "Node.js",
+    "difficulty": "intermediate",
+    "category": "backend",
+    "prerequisites": [
+      "JavaScript"
+    ],
+    "energyWaste": 70,
+    "time": 150,
+    "rewards": {
+      "money": 0,
+      "exp": 100,
+      "items": []
+    },
+    "link": "https://nodejs.org/en/learn",
+    "isRepeatable": false,
+    "maxRepeats": 1,
+    "timesCompleted": 0
+  },
+  {
+    "id": "task_006",
+    "type": "Фриланс",
+    "name": "Верстка лендинга",
+    "description": "Создайте адаптивную посадочную страницу для клиента",
+    "difficulty": "beginner",
+    "category": "frontend",
+    "requiredSkills": [
+      "HTML",
+      "CSS"
+    ],
+    "energyWaste": 50,
+    "time": 240,
+    "rewards": {
+      "money": 300,
+      "exp": 60,
+      "items": []
+    },
+    "isRepeatable": true,
+    "maxRepeats": 10,
+    "timesCompleted": 0
+  }
+],
+"achievements": [
+  {
+    "id": "first_skill",
+    "name": "Первый навык",
+    "description": "Изучите свой первый навык программирования",
+    "icon": "🎯",
+    "condition": {
+      "type": "skillsLearned",
+      "value": 1
+    },
+    "reward": {
+      "exp": 20,
+      "money": 50
     }
   },
-  "specialTasks": [
-    {
-      "type": "Обучение",
-      "name": "Tic-Tac-Toe на одномерном массиве",
-      "skill": "JavaScript",
-      "energyWaste": 40,
-      "time": 1,
-      "rewardXP": 3,
-      "link": "https://youtu.be/UvzA_YukjKI?si=-c9X2Ykv8DDtGwkQ"
-    },
-    {
-      "type": "Задание",
-      "name": "Повторить код",
-      "requiredSkills": [
+  {
+    "id": "frontend_master",
+    "name": "Мастер фронтенда",
+    "description": "Изучите HTML, CSS и JavaScript",
+    "icon": "🌟",
+    "condition": {
+      "type": "specificSkills",
+      "value": [
         "HTML",
         "CSS",
         "JavaScript"
-      ],
-      "energyWaste": 30,
-      "time": 3,
-      "rewardMoney": 0,
-      "rewardXP": 3
+      ]
+    },
+    "reward": {
+      "exp": 100,
+      "money": 200
+    }
+  },
+  {
+    "id": "money_maker",
+    "name": "Заработчик",
+    "description": "Заработайте первые 500 монет",
+    "icon": "💰",
+    "condition": {
+      "type": "totalMoney",
+      "value": 500
+    },
+    "reward": {
+      "exp": 50,
+      "money": 100
+    }
+  },
+  {
+    "id": "task_completionist",
+    "name": "Исполнитель",
+    "description": "Выполните 10 заданий",
+    "icon": "✅",
+    "condition": {
+      "type": "tasksCompleted",
+      "value": 10
+    },
+    "reward": {
+      "exp": 80,
+      "money": 150
+    }
+  }
+],
+"shop": {
+  "items": [
+    {
+      "id": "energy_drink",
+      "name": "Энергетик",
+      "description": "Восстанавливает 50 энергии",
+      "price": 100,
+      "effect": {
+        "type": "restoreEnergy",
+        "value": 50
+      },
+      "category": "consumable",
+      "maxStack": 5
+    },
+    {
+      "id": "skill_booster",
+      "name": "Ускоритель обучения",
+      "description": "Увеличивает получаемый опыт на 25% на 1 час",
+      "price": 200,
+      "effect": {
+        "type": "expMultiplier",
+        "value": 1.25,
+        "duration": 3600
+      },
+      "category": "booster",
+      "maxStack": 3
+    },
+    {
+      "id": "energy_upgrade",
+      "name": "Улучшение энергии",
+      "description": "Увеличивает максимальную энергию на 20",
+      "price": 500,
+      "effect": {
+        "type": "maxEnergyIncrease",
+        "value": 20
+      },
+      "category": "upgrade",
+      "maxStack": 10
     }
   ]
+},
+"gameSettings": {
+  "energyRegenRate": 1,
+  "energyRegenInterval": 300,
+  "autoSave": true,
+  "autoSaveInterval": 60,
+  "notifications": true,
+  "soundEffects": true,
+  "music": true,
+  "theme": "dark"
+},
+"gameState": {
+  "isPaused": false,
+  "totalPlayTime": 0,
+  "lastSaveTime": "2025-08-19T10:00:00Z",
+  "currentDifficulty": "easy",
+  "tutorialCompleted": false,
+  "activeEffects": []
+}
 }
