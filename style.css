@@ -607,3 +607,41 @@
  .lastMessege {
    display: none;
  }
+
+
+
+
+
+
+
+ .modal {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background: rgba(0, 0, 0, 0.6);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+ }
+
+ .modal-content {
+   background: #fff;
+   padding: 20px;
+   border-radius: 12px;
+   text-align: center;
+   max-width: 320px;
+ }
+
+ .modal-content button {
+   margin: 10px;
+   padding: 10px 20px;
+   cursor: pointer;
+ }
+
+
+ .instructionsBTN,
+ .instructionsText {
+   display: none;
+ }

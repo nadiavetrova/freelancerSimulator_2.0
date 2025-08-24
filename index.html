@@ -25,7 +25,7 @@
               </li>
               <li class="hubItem">⭐ Опыт: <span id="exp">0</span> / <span id="expToNext">100</span></li>
               <li class="hubItem">💰 Монеты: <span id="money">0</span></li>
-              <li class="hubItem">⚡ Энергия: <span id="energy">100</span> / <span id="maxEnergy">100</span></li>
+              <li class="hubItem">⚡ Энергия: <span id="energy"></span></li>
               <li class="hubItem">⚡ Skills: <span id="skills">HTML, CSS</span></li>
             </ul>
             <div class="hubIMG">
@@ -36,12 +36,14 @@
           <p class="endTime"> Время: <span id="endTime"></span> до окончания срока
             достичения
             цели
+
+            <span class="localStoreList"></span>
           </p>
           <div class="instuction">
             <p class="instructionsText">
               <span>📜 Инструкция к игре</span> <br>
               У тебя есть 14 игровых дней, чтобы выполнить план:
-              заработать определённую сумму денег - 1000$.
+              заработать определённую сумму денег - 1000 монет.
 
               Выполнить 2–4 обязательных заказа (они будут рандомно предложенны в процессе). <br>
 
@@ -65,6 +67,14 @@
                   Продолжим завтра! 🚀
                 </p>
               </div>
+            </div>
+          </div>
+          <div id="energyModal" class="modal" style="display:none;">
+            <div class="modal-content">
+              <h3>⚡ Недостаточно энергии</h3>
+              <p>Хотите купить энергетик за 100 монет и восстановить 50 энергии?</p>
+              <button id="buyEnergyBtn">🛒 Купить</button>
+              <button id="cancelEnergyBtn">❌ Отмена</button>
             </div>
           </div>
         </div>

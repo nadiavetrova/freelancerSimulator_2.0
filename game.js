@@ -114,16 +114,7 @@ function characterSelectionInit() {
 characterSelectionInit();
 
 
-
-
-
-
-
-
-
-
 function initPlayerHUD() {
-
   function updateCountdown() {
     const startTime = localStorage.getItem('gameStartTime');
     if (!startTime) {
@@ -145,13 +136,12 @@ function initPlayerHUD() {
     const minutes = Math.floor((diff / (1000 * 60)) % 60);
     const seconds = Math.floor((diff / 1000) % 60);
 
-    document.getElementById("endTime").textContent = `${days}д ${hours}ч ${minutes}м ${seconds}с`;
+    document.getElementById("endTime").textContent =
+      `${days}д ${hours}ч ${minutes}м ${seconds}с`;
   }
 
-  // Таймер обновляется каждую секунду
   setInterval(updateCountdown, 1000);
 
-  // Инструкции
   const instructionsBTN = document.querySelector('.instructionsBTN');
   const instructionsText = document.querySelector('.instructionsText');
 
@@ -182,6 +172,19 @@ function initPlayerHUD() {
   ];
 
   let current = 0;
+
+  // 👉 Проверяем, проходил ли игрок инструкции раньше
+  if (localStorage.getItem('tutorialCompleted') === 'true') {
+    // Если да — сразу показываем игру (инструкции даже не вспыхнут)
+    document.querySelector('.game').style.display = 'block';
+    updateCountdown();
+    return;
+  }
+
+  // Если ещё не пройдены → показываем кнопки инструкций
+  instructionsBTN.style.display = 'inline-block';
+  instructionsText.style.display = 'block';
+
   instructionsBTN.addEventListener('click', function () {
     if (current < texts.length) {
       instructionsText.innerHTML = texts[current];
@@ -195,16 +198,233 @@ function initPlayerHUD() {
       if (!localStorage.getItem('gameStartTime')) {
         localStorage.setItem('gameStartTime', Date.now());
       }
-      updateCountdown(); // Запускаем сразу
+
+      // ✅ Запоминаем, что инструкции уже пройдены
+      localStorage.setItem('tutorialCompleted', 'true');
+
+      updateCountdown();
       instructionsBTN.style.display = 'none';
       instructionsText.style.display = 'none';
       document.querySelector('.game').style.display = 'block';
     }
   });
-
 }
 
 initPlayerHUD();
+
+
+
+
+
+
+
+
+
+
+
+async function gameStart() {
+  const taskList = document.getElementById("taskList");
+  const dailyLimitMessage = document.getElementById("dailyLimitMessage");
+
+  // HUD элементы
+  const expEl = document.getElementById("exp");
+  const moneyEl = document.getElementById("money");
+  const energyEl = document.getElementById("energy");
+
+  // --- Настройки лимита на день ---
+  const DAILY_TASK_LIMIT = 3; // В ДЕНЬ РОВНО 3 ПРЕДЛОЖЕНИЯ
+  const ENERGY_RESTORE_TIME = 60 * 60 * 1000; // 1 час в миллисекундах
+
+  // Загружаем/инициализируем игрока из localStorage
+  let player = JSON.parse(localStorage.getItem("player")) || {
+    exp: 0,
+    expToNext: 100,
+    money: 0,
+    energy: 100,
+    maxEnergy: 100,
+    offersToday: 0, // сколько предложений задач уже было сегодня (принял ИЛИ отказался)
+    lastLogin: Date.now(),
+    lastEnergyRestore: Date.now() // 🔹 новое поле
+  };
+
+  const now = Date.now();
+  const oneDay = 24 * 60 * 60 * 1000;
+
+  // Проверяем новый день
+  if (now - player.lastLogin >= oneDay) {
+    player.lastLogin = now;
+    player.offersToday = 0;
+    saveProgress();
+  }
+
+  // 🔹 Проверяем восстановление энергии
+  if (now - player.lastEnergyRestore >= ENERGY_RESTORE_TIME) {
+    player.energy = player.maxEnergy;
+    player.lastEnergyRestore = now;
+    saveProgress();
+  }
+
+  function updateHUD() {
+    expEl.textContent = player.exp;
+    moneyEl.textContent = player.money;
+    energyEl.textContent = `${player.energy} / ${player.maxEnergy}`;
+  }
+
+  function saveProgress() {
+    localStorage.setItem("player", JSON.stringify(player));
+  }
+
+  // --- Грузим задачи ---
+  const response = await fetch("stage.json");
+  const data = await response.json();
+  const tasks = Array.isArray(data?.specialTasks) ? data.specialTasks : [];
+
+  if (!tasks.length) {
+    taskList.innerHTML = `<li>Задач пока нет. Добавь их в stage.json → specialTasks</li>`;
+    return;
+  }
+
+  const randInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+  const pickRandomTask = () => tasks[randInt(0, tasks.length - 1)];
+
+  function showNextTask() {
+    if (player.offersToday >= DAILY_TASK_LIMIT) {
+      dailyLimitMessage.style.display = "block";
+      return;
+    }
+    dailyLimitMessage.style.display = "none";
+
+    const task = pickRandomTask();
+    const li = document.createElement("li");
+    li.classList.add("task");
+    li.innerHTML = `
+      <h3>${task.name}</h3>
+      <p>${task.description}</p>
+      <p>💰 Награда: ${task.rewards?.money ?? 0} монет</p>
+      <p>⭐ Опыт: ${task.rewards?.exp ?? 0}</p>
+      <p>⚡ Энергия: -${task.energyWaste ?? 0}</p>
+      <p>⏳ Время: ${task.time ?? 0} мин</p>
+      ${task.link ? `<p><a href="${task.link}" target="_blank" rel="noopener">Материал / ссылка</a></p>` : ""}
+      <button class="acceptBtn">✅ Взять в работу</button>
+      <button class="declineBtn">❌ Отказаться</button>
+    `;
+
+    const acceptBtn = li.querySelector(".acceptBtn");
+    const declineBtn = li.querySelector(".declineBtn");
+
+    acceptBtn.addEventListener("click", () => acceptTask(task, li));
+    declineBtn.addEventListener("click", () => declineTask(li));
+    taskList.appendChild(li);
+  }
+
+  function acceptTask(task, li) {
+    const need = Number(task.energyWaste ?? 0);
+    if (player.energy < need) {
+      showEnergyModal(task, li);
+      return;
+    }
+    completeTask(task, li);
+    consumeDailyOffer();
+  }
+
+  function declineTask(li) {
+    li.remove();
+    consumeDailyOffer();
+  }
+
+  function completeTask(task, li) {
+    const spendEnergy = Number(task.energyWaste ?? 0);
+    const rewardMoney = Number(task.rewards?.money ?? 0);
+    const rewardExp = Number(task.rewards?.exp ?? 0);
+
+    player.energy = Math.max(0, player.energy - spendEnergy);
+    player.money += rewardMoney;
+    player.exp += rewardExp;
+
+    // 🔹 если энергия упала → фиксируем время
+    if (player.energy < player.maxEnergy) {
+      player.lastEnergyRestore = Date.now();
+    }
+
+    updateHUD();
+    saveProgress();
+    li.remove();
+  }
+
+  function consumeDailyOffer() {
+    player.offersToday += 1;
+    saveProgress();
+
+    if (player.offersToday >= DAILY_TASK_LIMIT) {
+      dailyLimitMessage.style.display = "block";
+    } else {
+      showNextTask();
+    }
+  }
+
+  function showEnergyModal(task, li) {
+    const modal = document.getElementById("energyModal");
+    const buyBtn = document.getElementById("buyEnergyBtn");
+    const cancelBtn = document.getElementById("cancelEnergyBtn");
+
+    if (!modal || !buyBtn || !cancelBtn) {
+      alert("Недостаточно энергии ⚡");
+      return;
+    }
+
+    modal.style.display = "flex";
+
+    buyBtn.onclick = null;
+    cancelBtn.onclick = null;
+
+    buyBtn.onclick = () => {
+      const PRICE = 100;
+      const RESTORE = 50;
+
+      if (player.money >= PRICE) {
+        player.money -= PRICE;
+        player.energy = Math.min(player.maxEnergy, player.energy + RESTORE);
+
+        if (player.energy === player.maxEnergy) {
+          player.lastEnergyRestore = Date.now(); // сбрасываем таймер восстановления
+        }
+
+        updateHUD();
+        saveProgress();
+        modal.style.display = "none";
+
+        const need = Number(task.energyWaste ?? 0);
+        if (player.energy >= need) {
+          completeTask(task, li);
+          consumeDailyOffer();
+        }
+      } else {
+        alert("Недостаточно монет 💸");
+      }
+    };
+
+    cancelBtn.onclick = () => {
+      modal.style.display = "none";
+    };
+  }
+
+  // Старт
+  updateHUD();
+
+  if (player.offersToday < DAILY_TASK_LIMIT) {
+    showNextTask();
+  } else {
+    dailyLimitMessage.style.display = "block";
+  }
+}
+
+gameStart();
+
+
+
+
+
+
 
 //   const orders = [
 //     { text: "Выберите заказ", money: 0, energy: 0, xp: 0 },
