@@ -4,6 +4,10 @@
    padding: 0;
  }
 
+ ul {
+   padding: 0;
+ }
+
  .uppercase {
    text-transform: uppercase;
  }
@@ -373,7 +377,9 @@
  }
 
  /* Иконка и текст */
- .hud span {
+ .hud span,
+ .acceptBtn,
+ .titleTaskName {
    width: 100%;
    background-color: #a59f36;
    border: 1px solid #e5e9ddad;
@@ -412,10 +418,10 @@
 
  .game,
  .instuction {
-   width: 50%;
+   width: 80%;
    position: absolute;
-   top: 15%;
-   left: 28%;
+   top: 20%;
+   left: 15%;
    display: flex;
    flex-direction: column;
    gap: 10px;
@@ -440,11 +446,31 @@
    font-weight: bold;
  }
 
+ .taskList {
+   display: flex;
+ }
 
+ .player-stats {
+   font-size: 16px;
+   font-weight: bold;
+ }
+
+ .taskList h3 {
+   height: auto;
+   font-size: 20px;
+   border-bottom: 2px solid #796f05;
+ }
+
+ .taskList li {
+   border-right: 2px solid #796f05;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+ }
 
  /* ___________game______________ */
  .game {
-   background-color: #1e3509;
+   background-color: #4c4817;
    margin: 0 auto;
    display: none;
  }
